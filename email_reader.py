@@ -1,3 +1,6 @@
+import imaplib
+import re
+
 def email_read():
     with open('cred', 'r') as f:
         cred = f.read().split('\n')
