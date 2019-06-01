@@ -41,8 +41,7 @@ for match in matches:
             winlose["L"].append(team2)
 lose = collections.Counter([item for list in winlose["L"] for item in list])
 win = collections.Counter([item for list in winlose["W"] for item in list])
-for x in set(win).intersection(lose):
-    print(x, win[x]/(win[x]+lose[x]), win[x]+lose[x])
+print([(x, win[x]/(win[x]+lose[x]), win[x]+lose[x]) for x in set(win).intersection(lose)])
 #tie = collections.Counter([item for list in winlose["T"] for item in list])
 
 #future data processing
