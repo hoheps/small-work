@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 import re
 import collections
 
-with open('steam.txt', 'r') as f:
+with open('steam.html', 'r') as f:
     data = f.read()
 
 soup = BeautifulSoup(data,"lxml")
@@ -41,7 +41,21 @@ for match in matches:
             winlose["L"].append(team2)
 lose = collections.Counter([item for list in winlose["L"] for item in list])
 win = collections.Counter([item for list in winlose["W"] for item in list])
-print([(x, win[x]/(win[x]+lose[x]), win[x]+lose[x]) for x in set(win).intersection(lose)])
+partners = set(win).intersection(lose)
+print([(x, win[x]/(win[x]+lose[x]), win[x]+lose[x]) for x in partners])
+modwin = collections.Counter()
+modlose = collections.Counter()
+for x in winlose['L']:                                 
+    modlose[tuple(sorted(y for y in x if y in partners))] += 1 
+for x in winlose['W']:                                 
+    modwin[tuple(sorted(y for y in x if y in partners))] += 1 
+print([(x, modwin[x]/(modwin[x]+modlose[x]), modwin[x]+modlose[x]) for x in modlose])
+
+
+#teams = set(winlose["W"]).intersection(winlose["L"])
+#for team in teams:
+#    pass
+
 #tie = collections.Counter([item for list in winlose["T"] for item in list])
 
 #future data processing
