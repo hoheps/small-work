@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 import re
 import collections
 
-with open('steam.html', 'r') as f:
+with open('steam.txt', 'r') as f:
     data = f.read()
 
 soup = BeautifulSoup(data,"lxml")
